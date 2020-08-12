@@ -9,10 +9,7 @@ import org.springframework.web.client.RestTemplate
 
 @SpringBootApplication
 @Configuration
-class ProducerApplication {
-    @Bean
-    fun restTemplate(): RestTemplate = RestTemplateBuilder().build()
-}
+class ProducerApplication
 
 fun main(args: Array<String>) {
     runApplication<ProducerApplication>(*args)

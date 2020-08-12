@@ -1,5 +1,7 @@
 package yh.study.consumer
 
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -14,7 +16,17 @@ import org.springframework.web.client.RestTemplate
  * @since 2020. 08. 07
  */
 @RestController
-class Controller(val restTemplate: RestTemplate) {
+class Controller {
+
+    private val restTemplate: RestTemplate
+
+    @Autowired
+    constructor(builder: RestTemplateBuilder) : this(builder.build())
+
+    constructor(restTemplate: RestTemplate) {
+        this.restTemplate = restTemplate
+    }
+
     @GetMapping("/calculate")
     fun checkOddAndEven(@RequestParam("number") number: Int): String? {
         val httpHeaders = HttpHeaders()

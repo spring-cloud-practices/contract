@@ -1,6 +1,6 @@
 package yh.study.consumer
 
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
  * @since 2020. 08. 07
  */
 @RunWith(SpringRunner::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 @AutoConfigureStubRunner(
@@ -30,14 +30,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 )
 class ControllerIntegrationTest {
     @Autowired
-    private val mockMvc: MockMvc? = null
+    private lateinit var mvc: MockMvc
 
     @Test
-    @Throws(Exception::class)
     fun given_WhenPassEvenNumberInQueryParam_ThenReturnEven() {
-        mockMvc!!.perform(
-            MockMvcRequestBuilders.get("/calculate?number=2")
-                .contentType(MediaType.APPLICATION_JSON)
+        mvc.perform(
+            MockMvcRequestBuilders
+                .get("/calculate?number=2")
+                .contentType(MediaType.APPLICATION_JSON.toString())
         )
             .andExpect(status().isOk)
             .andExpect(content().string("Even"))
