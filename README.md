@@ -4,9 +4,7 @@ producer with local maven and consumer with test
 
 How to run?
 ---
-Run
 
----
 First  
 ```
 /cd producer
